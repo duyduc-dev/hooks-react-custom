@@ -7,7 +7,7 @@
   "types": "./dist/esm/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/duyduc2003/hooks-react-custom.git"
+    "url": "git@github.com:duyduc2003/hooks-react-custom.git"
   },
   "peerDependencies": {
     "react": ">=16"
