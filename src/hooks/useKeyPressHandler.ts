@@ -138,4 +138,4 @@ function useKeyPressHandler(keyMap: KeyMap, eventHandler: EventHandler = noop, e
   }, [events, eventHandler])
 }
 
-export default useKeyPressHandler
+export { useKeyPressHandler }
