@@ -27,7 +27,15 @@ function useLocalStorage<T>(key: string, initialValue: T) {
       console.error('hooks-react-custom useLocalStorage.ts ~ setValue ~ error', error)
     }
   }
-  return [storedValue, setValue] as const
+
+  const removeValue = () => {
+    try {
+      if (typeof window !== 'undefined') window.localStorage.removeItem(key)
+    } catch (error) {
+      console.error('hooks-react-custom useLocalStorage.ts:35 ~ removeValue ~ error', error)
+    }
+  }
+  return [storedValue, setValue, removeValue] as const
 }
 
 export { useLocalStorage }
