@@ -6,6 +6,11 @@ const useToggle = (initialState = false) => {
   // Define and memorize toggler function in case we pass down the comopnent,
   // This function change the boolean value to it's opposite value
   const toggle = useCallback((): void => setState((state) => !state), [])
-  return [state, toggle] as const
+
+  const setTrue = useCallback((): void => setState(true), [])
+
+  const setFalse = useCallback((): void => setState(false), [])
+
+  return [state, toggle, { setTrue, setFalse }] as const
 }
 export { useToggle }
