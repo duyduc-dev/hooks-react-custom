@@ -7,7 +7,9 @@ function useInputText(initialValue = '') {
     setValue(e.target.value)
   }, [])
 
-  return { value, onChange } as const
+  const setInputText = useCallback(setValue, [setValue])
+
+  return { value, onChange, setInputText } as const
 }
 
 export { useInputText }
