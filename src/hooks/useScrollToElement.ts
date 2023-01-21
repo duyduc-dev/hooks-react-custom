@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
-const useScrollToElement = <T extends Element>() => {
-  const ref = useRef<T>(null)
-  const [shouldScrollTo, setShouldScrollTo] = useState(false)
+type UseScrollToElementReturn<T> = [React.MutableRefObject<T | null>, () => void]
 
-  useEffect(() => {
-    if (ref.current && shouldScrollTo) {
-      ref.current!.scrollIntoView({ behavior: 'smooth' })
-      setShouldScrollTo(false)
+const useScrollToElement = <T extends HTMLElement>(): UseScrollToElementReturn<T> => {
+  const ref = useRef<T | null>(null)
+  const scrollToRef = (): void => {
+    if (ref.current) {
+      window.scrollTo({
+        top: ref.current.offsetTop,
+        behavior: 'smooth',
+      })
     }
-  }, [shouldScrollTo])
-
-  return [ref, setShouldScrollTo]
+  }
+  return [ref, scrollToRef]
 }
 
-export { useScrollToElement }
+export { useScrollToElement, UseScrollToElementReturn }
