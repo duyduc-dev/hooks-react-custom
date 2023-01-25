@@ -22,8 +22,6 @@ export type UseArray<T = any> = [T[], UseArrayActions<T>]
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial)
 
-  const [randomKey, setRandomKey] = useState(0)
-
   const push = useCallback((a: any) => {
     setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])])
   }, [])
