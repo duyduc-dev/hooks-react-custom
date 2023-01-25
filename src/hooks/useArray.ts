@@ -16,11 +16,14 @@ export type UseArrayActions<T> = {
     newValue: Partial<T>,
   ) => void
   removeIndex: (index: number) => void
+  randomIndex: () => number
+  randomValue: () => T
 }
 export type UseArray<T = any> = [T[], UseArrayActions<T>]
 
 function useArray<T = any>(initial: T[]): UseArray<T> {
   const [value, setValue] = useState(initial)
+
   const push = useCallback((a: any) => {
     setValue((v) => [...v, ...(Array.isArray(a) ? a : [a])])
   }, [])
@@ -57,6 +60,8 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
       setValue((arr) => arr.map((v) => (v.id === id ? { ...v, ...newValue } : v))),
     [],
   )
+  const randomIndex = useCallback(() => Math.floor(Math.random() * value.length), [value.length])
+  const randomValue = useCallback(() => value[randomIndex()], [randomIndex, value])
   const actions = useMemo(
     () => ({
       setValue,
@@ -70,8 +75,10 @@ function useArray<T = any>(initial: T[]): UseArray<T> {
       pop,
       shift,
       modifyById,
+      randomIndex,
+      randomValue,
     }),
-    [modifyById, push, unshift, move, clear, removeById, removeIndex, pop, shift],
+    [modifyById, push, unshift, move, clear, removeById, removeIndex, pop, shift, randomIndex, randomValue],
   )
   return [value, actions]
 }
