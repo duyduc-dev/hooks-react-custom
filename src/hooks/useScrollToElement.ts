@@ -4,9 +4,9 @@ type UseScrollToElementReturn<T> = [React.MutableRefObject<T | null>, () => void
 
 const useScrollToElement = <T extends HTMLElement>(): UseScrollToElementReturn<T> => {
   const ref = useRef<T | null>(null)
-  const scrollToRef = (): void => {
+  const scrollToRef = (arg?: boolean | ScrollIntoViewOptions | undefined): void => {
     if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' })
+      ref.current.scrollIntoView(arg)
     }
   }
   return [ref, scrollToRef]
