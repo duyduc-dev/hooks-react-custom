@@ -6,4 +6,4 @@ function useDocumentTitle(title: string): void {
   }, [title])
 }
 
-export default useDocumentTitle
+export { useDocumentTitle }
