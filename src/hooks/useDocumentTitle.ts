@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect'
 
-function useDocumentTitle(title: string): void {
+function useDocumentTitle(title: string) {
+  const [titleApp, setTitleApp] = useState(title)
   useIsomorphicLayoutEffect(() => {
-    window.document.title = title
+    window.document.title = titleApp
   }, [title])
+
+  return { title: titleApp, setTitleApp }
 }
 
 export { useDocumentTitle }
